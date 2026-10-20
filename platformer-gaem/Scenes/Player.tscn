@@ -1,49 +1,108 @@
 [gd_scene format=3 uid="uid://dw8vp0tkk6oua"]
 
 [ext_resource type="Script" uid="uid://b2mfbdoki3x0k" path="res://Scripts/player.gd" id="1_kyqiw"]
-[ext_resource type="Texture2D" uid="uid://dgnhp3062shie" path="res://Sprites/Spritesheets/New Piskel.png" id="1_rpqav"]
+[ext_resource type="Texture2D" uid="uid://k66uq2wmr4pk" path="res://Sprites/Spritesheets/Prince.png" id="2_kyqiw"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_88kja"]
-atlas = ExtResource("1_rpqav")
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyqiw"]
+atlas = ExtResource("2_kyqiw")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhhdu"]
+atlas = ExtResource("2_kyqiw")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_megsn"]
+atlas = ExtResource("2_kyqiw")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gntrk"]
+atlas = ExtResource("2_kyqiw")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_it8n0"]
-atlas = ExtResource("1_rpqav")
+[sub_resource type="AtlasTexture" id="AtlasTexture_dewec"]
+atlas = ExtResource("2_kyqiw")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gbyq6"]
-atlas = ExtResource("1_rpqav")
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ixxa"]
+atlas = ExtResource("2_kyqiw")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nn08x"]
+atlas = ExtResource("2_kyqiw")
 region = Rect2(0, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pbq55"]
-atlas = ExtResource("1_rpqav")
+[sub_resource type="AtlasTexture" id="AtlasTexture_52ee3"]
+atlas = ExtResource("2_kyqiw")
 region = Rect2(32, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t38ji"]
-atlas = ExtResource("1_rpqav")
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoq75"]
+atlas = ExtResource("2_kyqiw")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksbbd"]
+atlas = ExtResource("2_kyqiw")
 region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glx4g"]
+atlas = ExtResource("2_kyqiw")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_miouo"]
+atlas = ExtResource("2_kyqiw")
+region = Rect2(64, 64, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_13qdw"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_88kja")
+"texture": SubResource("AtlasTexture_kyqiw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_it8n0")
+"texture": SubResource("AtlasTexture_bhhdu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gbyq6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pbq55")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t38ji")
+"texture": SubResource("AtlasTexture_megsn")
 }],
 "loop": 1,
-"name": &"idlePlayerAnimation",
-"speed": 5.0
+"name": &"princeAir",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gntrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dewec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ixxa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nn08x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52ee3")
+}],
+"loop": 1,
+"name": &"princeIdle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoq75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksbbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glx4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_miouo")
+}],
+"loop": 1,
+"name": &"princeWalking",
+"speed": 9.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_13qdw"]
@@ -56,8 +115,10 @@ script = ExtResource("1_kyqiw")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=606022306]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_13qdw")
-animation = &"idlePlayerAnimation"
-autoplay = "idlePlayerAnimation"
+animation = &"princeAir"
+autoplay = "princeIdle"
+frame = 2
+frame_progress = 0.76097417
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1064614231]
 position = Vector2(-3, 3)
