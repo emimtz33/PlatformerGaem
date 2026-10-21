@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://b2mfbdoki3x0k" path="res://Scripts/player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://k66uq2wmr4pk" path="res://Sprites/Spritesheets/Prince.png" id="2_kyqiw"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_5ixxa"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_nn08x"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_52ee3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kyqiw"]
 atlas = ExtResource("2_kyqiw")
@@ -54,16 +57,16 @@ region = Rect2(64, 64, 32, 32)
 [sub_resource type="SpriteFrames" id="SpriteFrames_13qdw"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 1.7,
 "texture": SubResource("AtlasTexture_kyqiw")
 }, {
-"duration": 1.0,
+"duration": 1.7,
 "texture": SubResource("AtlasTexture_bhhdu")
 }, {
-"duration": 1.0,
+"duration": 1.7,
 "texture": SubResource("AtlasTexture_megsn")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"princeAir",
 "speed": 10.0
 }, {
@@ -71,16 +74,16 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gntrk")
 }, {
-"duration": 1.0,
+"duration": 1.5,
 "texture": SubResource("AtlasTexture_dewec")
 }, {
-"duration": 1.0,
+"duration": 1.5,
 "texture": SubResource("AtlasTexture_5ixxa")
 }, {
-"duration": 1.0,
+"duration": 1.5,
 "texture": SubResource("AtlasTexture_nn08x")
 }, {
-"duration": 1.0,
+"duration": 1.5,
 "texture": SubResource("AtlasTexture_52ee3")
 }],
 "loop": 1,
@@ -106,8 +109,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_13qdw"]
-radius = 13.0
-height = 90.0
+radius = 18.0
+height = 86.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1766855942]
 script = ExtResource("1_kyqiw")
@@ -117,9 +120,47 @@ scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_13qdw")
 animation = &"princeAir"
 autoplay = "princeIdle"
-frame = 2
-frame_progress = 0.76097417
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1064614231]
-position = Vector2(-3, 3)
+position = Vector2(-3, 1)
 shape = SubResource("CapsuleShape2D_13qdw")
+
+[node name="StateChart" type="Node" parent="." unique_id=815628159]
+script = ExtResource("3_5ixxa")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Root" type="Node" parent="StateChart" unique_id=373250516]
+script = ExtResource("4_nn08x")
+initial_state = NodePath("Ground")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Ground" type="Node" parent="StateChart/Root" unique_id=1890792867]
+script = ExtResource("4_nn08x")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Idle" type="Node" parent="StateChart/Root/Ground" unique_id=1097555377]
+script = ExtResource("5_52ee3")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Walk" type="Node" parent="StateChart/Root/Ground" unique_id=1191002837]
+script = ExtResource("5_52ee3")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Air" type="Node" parent="StateChart/Root" unique_id=1728078106]
+script = ExtResource("4_nn08x")
+initial_state = NodePath("Jump")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Jump" type="Node" parent="StateChart/Root/Air" unique_id=314334999]
+script = ExtResource("5_52ee3")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Glide" type="Node" parent="StateChart/Root/Air" unique_id=1709556226]
+script = ExtResource("5_52ee3")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[connection signal="state_entered" from="StateChart/Root/Ground/Idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Ground/Walk" to="." method="_on_walk_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Air/Jump" to="." method="_on_jump_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Air/Glide" to="." method="_on_glide_state_entered"]
