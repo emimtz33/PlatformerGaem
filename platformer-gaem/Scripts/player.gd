@@ -1,49 +1,57 @@
 extends CharacterBody2D
 
-
+# Crates base variables for jumping and running
 var SPEED = 400.0
 var JUMP_VELOCITY = -650.0
 
+#Links the sprite animation to the code
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _physics_process(delta: float) -> void:
-	var gravity = get_gravity()
-	var flight = gravity
 	
-
-		
+	# Crates variables that dictate how fallign works
+	var gravity = get_gravity()
+	var flightMode
+	
+	# Changes the speed and gravity depending on if the player wants to glide
 	if Input.is_action_pressed("glide") and velocity.y > 0:
-		flight = gravity/2
+		flightMode = gravity/3
 		JUMP_VELOCITY = -150
 		SPEED = 800
 	else:
-		flight = gravity
+		flightMode = gravity
 		JUMP_VELOCITY = -650
 		SPEED = 400
 	
+	# make the player jump
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	
+	# makes the player fall based on if its gliding or not
 	if not is_on_floor():
-		velocity += flight * delta	
-
+		velocity += flightMode * delta	
+	
+	# Decides which direction the player rmoves
 	var direction := Input.get_axis("moveLeft", "moveRight")
 
+	#flips sprite depending on diraction moving
 	if direction > 0:
 		animated_sprite.flip_h = false
 	if direction < 0:
 		animated_sprite.flip_h = true
 		
-	if not is_on_floor() and velocity.y > 0:
+	#plays animation based on what the playe ris doing
+	if not is_on_floor() and velocity.y > 0 and Input.is_action_pressed("glide"):
 		animated_sprite.play("princeAir")
 	elif direction == 0:
 		animated_sprite.play("princeIdle")
 	else:
 		animated_sprite.play("princeWalking")
-
+	
+	#moves the player
 	if direction:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+	
+	#mantsains fluid motion by preventing harsh stops
 	move_and_slide()
