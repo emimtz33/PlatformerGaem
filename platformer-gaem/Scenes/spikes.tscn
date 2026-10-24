@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://crjojaw1u21gl"]
+
+[ext_resource type="Script" uid="uid://csqvanamhqvgk" path="res://Scenes/spikes.gd" id="2_0qgod"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kry3j"]
+load_path = "res://.godot/imported/New Piskel-1.png.png-b251a335226fec8f227688f28128f1dc.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qvr35"]
+size = Vector2(3.5, 9)
+
+[node name="spikes" type="Node2D" unique_id=233956022]
+
+[node name="Spikes" type="Sprite2D" parent="." unique_id=1044242970]
+texture_filter = 1
+position = Vector2(336, 184.00002)
+scale = Vector2(3, 2.656)
+texture = SubResource("CompressedTexture2D_kry3j")
+script = ExtResource("2_0qgod")
+
+[node name="Area2D" type="Area2D" parent="Spikes" unique_id=1081230512]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spikes/Area2D" unique_id=1058179188]
+position = Vector2(-11.5, 11.5)
+shape = SubResource("RectangleShape2D_qvr35")
+one_way_collision = true
+debug_color = Color(3.3691526e-06, 0.60218513, 0.6892392, 0.41960785)

@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dw8vp0tkk6oua" path="res://Scenes/Player.tscn" id="2_kln2b"]
 [ext_resource type="Texture2D" uid="uid://colajbtcc6qv7" path="res://Backgrounds/TileSets/New Piskel (1).png" id="2_rgh2o"]
+[ext_resource type="Texture2D" uid="uid://dtmvyukqe73bq" path="res://Sprites/Spritesheets/New Piskel-1.png.png" id="3_jjvhh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pbw6q"]
 resource_name = "Grass"
@@ -13,28 +14,41 @@ texture_region_size = Vector2i(64, 64)
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 0:1/0 = 0
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 42.900017, -32.17501, 32, 32, -32, 32)
-2:0/0 = 0
-3:0/0 = 0
-3:1/0 = 0
-2:1/0 = 0
-1:2/0 = 0
-0:2/0 = 0
-0:3/0 = 0
-1:3/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_xrivr"]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_pbw6q")
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tnkmh"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jjvhh"]
+texture = ExtResource("3_jjvhh")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-13, -16, 13, -16, 13, 16, -13, 16)
+
+[sub_resource type="TileSet" id="TileSet_nwhj6"]
+tile_size = Vector2i(26, 32)
+physics_layer_0/collision_layer = 1
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_tnkmh")
+custom_data_layer_0/name = "Spikes"
+custom_data_layer_0/type = 4
+sources/3 = SubResource("TileSetAtlasSource_jjvhh")
+
 [node name="Main" type="Node2D" unique_id=558003716]
 
 [node name="mapMaker" type="TileMapLayer" parent="." unique_id=2139548928]
-tile_map_data = PackedByteArray("AAAHAPz/AAAAAAEAAAAGAPz/AAAAAAAAAAABAPz/AAAAAAEAAAAAAPz/AAAAAAAAAAD8//n/AAAAAAEAAAD7//n/AAAAAAAAAAD5//X/AAAAAAEAAAD4//X/AAABAAAAAAD3//X/AAABAAAAAAD2//X/AAABAAAAAAD1//X/AAABAAAAAAD0//X/AAABAAAAAADz//X/AAABAAAAAADy//X/AAABAAAAAAD2//L/AAAAAAEAAAD1//L/AAAAAAAAAAD+//b/AAAAAAAAAAD///b/AAAAAAEAAAD8//H/AAAAAAAAAAD9//H/AAABAAAAAAD+//H/AAABAAAAAAD///H/AAABAAAAAAAAAPH/AAABAAAAAAABAPH/AAABAAAAAAACAPH/AAAAAAEAAAABAAMAAAAAAAAAAAACAAMAAAABAAAAAAADAAMAAAABAAAAAAAEAAMAAAABAAAAAAAFAAMAAAABAAAAAAAGAAMAAAABAAAAAAAHAAMAAAABAAAAAAAIAAMAAAABAAAAAAAJAAMAAAABAAAAAAAKAAMAAAABAAAAAAALAAMAAAAAAAEAAAAEAAAAAAAAAAAAAAALAP//AAAAAAEAAAAGAAAAAAAAAAEAAAAJAP//AAAAAAAAAAAFAAAAAAABAAAAAAAKAP//AAABAAAAAAA=")
+tile_map_data = PackedByteArray("AAAHAPz/AAAAAAEAAAAGAPz/AAAAAAAAAAABAPz/AAAAAAEAAAAAAPz/AAAAAAAAAAD8//n/AAAAAAEAAAD7//n/AAAAAAAAAAD5//X/AAAAAAEAAAD4//X/AAABAAAAAAD3//X/AAABAAAAAAD2//X/AAABAAAAAAD1//X/AAABAAAAAAD0//X/AAABAAAAAADz//X/AAABAAAAAADy//X/AAABAAAAAAD2//L/AAAAAAEAAAD1//L/AAAAAAAAAAD+//b/AAAAAAAAAAD///b/AAAAAAEAAAD8//H/AAAAAAAAAAD9//H/AAABAAAAAAD+//H/AAABAAAAAAD///H/AAABAAAAAAAAAPH/AAABAAAAAAABAPH/AAABAAAAAAACAPH/AAAAAAEAAAAEAAMAAAABAAAAAAAGAAMAAAABAAAAAAAHAAMAAAABAAAAAAAIAAMAAAABAAAAAAAJAAMAAAABAAAAAAAKAAMAAAABAAAAAAALAAMAAAAAAAEAAAAEAAAAAAAAAAAAAAALAP//AAAAAAEAAAAGAAAAAAAAAAEAAAAJAP//AAAAAAAAAAAFAAAAAAABAAAAAAAKAP//AAABAAAAAAACAO3/AAAAAAAAAAD//+r/AAAAAAAAAAAEAOj/AAAAAAAAAAAIAOb/AAAAAAAAAAAJAOb/AAAAAAEAAAAFAOj/AAAAAAEAAAAAAOr/AAAAAAEAAAADAO3/AAAAAAEAAAAFAPD/AAAAAAAAAAAGAPD/AAAAAAEAAAAXAPH/AAAAAAAAAAAYAPH/AAABAAAAAAAZAPH/AAABAAAAAAAaAPH/AAABAAAAAAAbAPH/AAABAAAAAAAcAPH/AAAAAAEAAAAPAOH/AAABAAAAAAAQAOH/AAABAAAAAAARAOH/AAABAAAAAAASAOH/AAABAAAAAAATAOH/AAABAAAAAAAUAOH/AAABAAAAAAAVAOH/AAABAAAAAAAWAOH/AAABAAAAAAAXAOH/AAABAAAAAAAYAOH/AAABAAAAAAAZAOH/AAABAAAAAAAaAOH/AAABAAAAAAAbAOH/AAAAAAEAAAAOAOH/AAAAAAAAAAAFAAMAAAABAAAAAAABAAMAAAAAAAAAAAACAAMAAAABAAAAAAADAAMAAAABAAAAAAA=")
 tile_set = SubResource("TileSet_xrivr")
 
+[node name="Harm Blocks" type="TileMapLayer" parent="mapMaker" unique_id=1116760759]
+tile_map_data = PackedByteArray("AAAMAAUAAwAAAAAAAAALAAUAAwAAAAAAAAANAAUAAwAAAAAAAAAKAAUAAwAAAAAAAAAOAAUAAwAAAAAAAAA=")
+tile_set = SubResource("TileSet_nwhj6")
+use_kinematic_bodies = true
+
 [node name="Player" parent="." unique_id=1766855942 instance=ExtResource("2_kln2b")]
-position = Vector2(169, 133)
+position = Vector2(127, 144)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2011997666]
-position = Vector2(-3, -21)
+position = Vector2(-4, -16)

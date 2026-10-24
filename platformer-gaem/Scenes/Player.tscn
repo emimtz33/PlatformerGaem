@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://clbc57nu0lhva" path="res://Scripts/player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://k66uq2wmr4pk" path="res://Sprites/Spritesheets/Prince.png" id="2_kyqiw"]
+[ext_resource type="Texture2D" uid="uid://nh3eo78pfr5q" path="res://Sprites/Spritesheets/Sprites 21_10_26.png" id="3_gntrk"]
+[ext_resource type="Script" uid="uid://c6rtvh7nt8q34" path="res://Scenes/area_2d.gd" id="4_dewec"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kyqiw"]
 atlas = ExtResource("2_kyqiw")
@@ -13,6 +15,18 @@ region = Rect2(32, 96, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_megsn"]
 atlas = ExtResource("2_kyqiw")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3h8g"]
+atlas = ExtResource("3_gntrk")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1e7my"]
+atlas = ExtResource("3_gntrk")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arntx"]
+atlas = ExtResource("3_gntrk")
 region = Rect2(64, 96, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gntrk"]
@@ -68,6 +82,20 @@ animations = [{
 "speed": 10.0
 }, {
 "frames": [{
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_o3h8g")
+}, {
+"duration": 0.7,
+"texture": SubResource("AtlasTexture_1e7my")
+}, {
+"duration": 80.0,
+"texture": SubResource("AtlasTexture_arntx")
+}],
+"loop": 2,
+"name": &"princeDeath",
+"speed": 8.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gntrk")
 }, {
@@ -105,9 +133,9 @@ animations = [{
 "speed": 9.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_13qdw"]
-radius = 18.0
-height = 86.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5ixxa"]
+radius = 13.000015
+height = 80.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1766855942]
 script = ExtResource("1_kyqiw")
@@ -118,6 +146,24 @@ sprite_frames = SubResource("SpriteFrames_13qdw")
 animation = &"princeAir"
 autoplay = "princeIdle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1064614231]
-position = Vector2(-3, 1)
-shape = SubResource("CapsuleShape2D_13qdw")
+[node name="Collision Box" type="CollisionShape2D" parent="." unique_id=1044255548]
+light_mask = 7
+visibility_layer = 7
+position = Vector2(-3, 3)
+shape = SubResource("CapsuleShape2D_5ixxa")
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=1586856493]
+position = Vector2(-3, 4)
+skew = -0.8709193
+disable_mode = 2
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("4_dewec")
+
+[node name="Hitbox" type="CollisionShape2D" parent="Area2D2" unique_id=2144819112]
+light_mask = 7
+visibility_layer = 7
+position = Vector2(1.1875305, -1.5525055)
+scale = Vector2(1, 1.9546084)
+skew = 0.6529826
+shape = SubResource("CapsuleShape2D_5ixxa")
