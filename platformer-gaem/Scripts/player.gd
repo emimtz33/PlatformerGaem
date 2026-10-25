@@ -3,12 +3,16 @@ extends CharacterBody2D
 # Crates base variables for jumping and running
 var SPEED = 400.0
 var JUMP_VELOCITY = -650.0
+var isDead = false
 
 #Links the sprite animation to the code
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+
 func _physics_process(delta: float) -> void:
 	
+	if isDead:
+		return
 	# Crates variables that dictate how fallign works
 	var gravity = get_gravity()
 	var flightMode
@@ -53,5 +57,15 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
+	if global_position.y > 500 :
+		death()
+		
 	#mantsains fluid motion by preventing harsh stops
 	move_and_slide()
+
+func death() -> void:
+	isDead = true
+	velocity = Vector2.ZERO
+	animated_sprite.play("princeDeath")
+	await get_tree().create_timer(1.5).timeout
+	get_tree().reload_current_scene()	
