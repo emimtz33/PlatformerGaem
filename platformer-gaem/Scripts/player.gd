@@ -4,10 +4,11 @@ extends CharacterBody2D
 var SPEED = 400.0
 var JUMP_VELOCITY = -650.0
 var isDead = false
+var rCount = 0
+
 
 #Links the sprite animation to the code
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D  
-
 func _physics_process(delta: float) -> void:
 	
 	if isDead:
@@ -58,7 +59,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
+	if Input.is_action_just_pressed("Restart"):
+		rCount = rCount + 1
 		
+	if rCount >= 3:
+		death()
+	
 	if global_position.y > 500 :
 		death()
 		
@@ -67,14 +73,14 @@ func _physics_process(delta: float) -> void:
 	
 	#mantsains fluid motion by preventing harsh stops
 	move_and_slide()
-
+ 
 func death() -> void:
 	isDead = true
 	velocity = Vector2.ZERO
 	animated_sprite.play("princeDeath")
 	await get_tree().create_timer(1.2).timeout
-	get_tree().reload_current_scene()
-
-
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	death() # Replace with function body.
+	rCount = 0
+	isDead = false
+	global_position = globalFiles.lastCheckpointPos
+	
+	

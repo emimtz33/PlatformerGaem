@@ -2,7 +2,9 @@ extends Node
 class_name globalFiles 
 
 # Global variables
-static var isPlayerDead: bool = false
+static var isPlayerDead = false
+static var lastCheckpointPos = Vector2(-5555,100)
+
 
 
 # Called when the node enters the scene tree for the first time.
